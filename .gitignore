@@ -1,0 +1,23 @@
+# Session Data files
+.RData
+
+# History files
+.Rhistory
+.Rapp.history
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+
+# excel spreadsheet
+.csv
+.xlsx
+
+# raw pictures
+.pict
