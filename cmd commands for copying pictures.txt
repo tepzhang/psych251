@@ -1,0 +1,29 @@
+#copy scenes (coding task)
+FOR /f "skip=1 delims=, tokens=2" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+#copy adhoc filenames (coding task)
+FOR /f "skip=1 delims=, tokens=7" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+#copy background items (recognition task)
+FOR /f "skip=1 delims=, tokens=4" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+#copy object items (recognition task)
+FOR /f "skip=1 delims=, tokens=6" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+#copy new object items (recognition task)
+FOR /f "skip=1 delims=, tokens=7" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+#copy new background items (recognition task)
+FOR /f "skip=1 delims=, tokens=8" %G in (list_all_files_in_use.csv) DO copy "C:\Stanford\PSYCH251 experimental methods\replication project\materials from authors\BACKGROUNDS_SLEEP\BACKGROUNDS_SLEEP\%G" "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G"
+
+
+
+#check if all files are copied, print any filename that is not in the desitination folder
+
+echo off
+FOR /f "skip=1 delims=, tokens=7" %G in (list_all_files_in_use.csv) DO if not exist "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G" (echo %G)
+echo on
+
+
+#list all filenames and write them to a txt
+dir > listmyfolder.txt

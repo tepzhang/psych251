@@ -1,5 +1,5 @@
 # Session Data files
-.RData
+*.RData
 
 # History files
 .Rhistory
@@ -16,8 +16,8 @@
 /cache/
 
 # excel spreadsheet
-.csv
-.xlsx
+*.csv
+*.xlsx
 
 # raw pictures
-.pict
+*.pict
