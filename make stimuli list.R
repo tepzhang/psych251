@@ -75,15 +75,57 @@ for (name in final_list$new_background) {
 final_list$new_item = append(new_object,new_background[1:32])
 
 link_pre = '<img src="'
-link_post = ' style="width: 450px; height: 600px;">'
-link_website = "http://web.stanford.edu/~jzhang18/psych251/my_tasks/pic/"
+link_post = '" style="width: 450px; height: 600px;">'
+link_website = "http://web.stanford.edu/~jzhang18/psych251/my_tasks/pic/processed/"
 
 final_list <- final_list %>% 
-  mutate(scene_final_link = str_c(link_pre, link_website, scene_final, link_post))
+  mutate(scene_final_link = str_c(link_pre, link_website, scene_final, link_post),
+         recog_object_link = str_c(link_pre, link_website, recog_object, link_post),
+         recog_background_link = str_c(link_pre, link_website, recog_background, link_post),
+         new_item_link = str_c(link_pre, link_website, new_item, link_post))
 
 #output the final list
 write_csv(final_list, file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "final_list.csv"))
 
+#create a list of all items in Session 2
+item <- append(final_list$recog_object, final_list$recog_background)
+item <- append(item, final_list$new_item)
+
+#create a list of all item links in Session 2
+item_link <- append(final_list$recog_object_link, final_list$recog_background_link)
+item_link <- append(item_link, final_list$new_item_link)
+
+#import the questions from the excel spreedsheet
+questions <- read_excel("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks/Payne_Kensinger_stimuli_list.xlsx", 3, range = cell_cols("A:B"))
+names(questions)[2] = "item"
+
+#create a dataframe of items, item links, and their corresponding questions
+questions_list <- data.frame("item" = item,"item_link" = item_link)
+#find the corresponding question
+for (i in 1:nrow(questions_list)){
+  for (j in 1:nrow(questions)){
+    tmp_item = questions_list$item[i]
+    tmp_name = questions$item[j]
+    if (str_sub(tmp_item, 1, str_length(tmp_item)-5) == str_sub(tmp_name, 1, str_length(tmp_name)-6)){
+      questions_list$question[i] = questions$question[j]
+      #print(sprintf("%d %d", i, j)) #show the i-j pair
+      break
+    }
+  }
+}
+
+#output the question list
+write_csv(questions_list, file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "questions_list.csv"))
+
+
+#practice files
+practice <- data.frame("scene" = c("zoo.png","show.png"), "item" = c("polar_bear.png","rhinoceros.png", "desert.png", "tennis court.png"))
+practice <- practice %>% 
+  mutate(scene_link = str_c(link_pre, link_website, scene, link_post),
+         item_link = str_c(link_pre, link_website, item, link_post),
+         question = str_c("Did you see a ", str_sub(item, 1, str_length(item)-4),"?"))
+#export practice list
+write_csv(practice, file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "practice_list.csv"))
 
 
 save.image(file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "make_stimuli_list.Rdata"))

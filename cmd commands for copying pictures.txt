@@ -24,6 +24,10 @@ echo off
 FOR /f "skip=1 delims=, tokens=7" %G in (list_all_files_in_use.csv) DO if not exist "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\raw\%G" (echo %G)
 echo on
 
+echo off
+FOR /f "skip=1 delims=, tokens=3,5,12,13" %G in (final_list.csv) DO if not exist "C:\Stanford\PSYCH251 experimental methods\replication project\my tasks\pic\processed\%G" (echo %G)
+echo on
+
 
 #list all filenames and write them to a txt
 dir > listmyfolder.txt
