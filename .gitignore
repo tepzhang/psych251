@@ -21,3 +21,7 @@
 
 # raw pictures
 *.pict
+
+# folder
+pic/processed_old/
+pic/raw/
