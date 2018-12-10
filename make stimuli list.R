@@ -1,5 +1,6 @@
 library(readxl)
 library(tidyverse)
+# link to the original stimuli list on Kensinger's labpage: https://www2.bc.edu/elizabeth-kensinger/NegNeutScenes.html
 #read the scene list from Payne and Kensinger list
 scene_list<- read_excel("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks/Payne_Kensinger_stimuli_list.xlsx")
 
@@ -34,12 +35,15 @@ my_list = my_list %>%
   mutate(recog_background = str_c(background, "1.png", sep = ""))
 #create the list of objects in the recognition task (same and similar)
 my_list = my_list %>% 
-  mutate(recog_object = ifelse(counterbalancing == 'A'| counterbalancing == 'B'|counterbalancing == 'E'|counterbalancing == 'F', str_c(neutral_obj, "1.png", sep = ""), str_c(negative_obj, "1.png", sep = "")))
+  mutate(recog_object = ifelse(counterbalancing == 'A'| counterbalancing == 'B'|counterbalancing == 'E'|counterbalancing == 'F', 
+                               str_c(neutral_obj, "1.png", sep = ""), str_c(negative_obj, "1.png", sep = "")))
 my_list = my_list %>% 
-  mutate(recog_object_raw = str_c(substr(recog_object, 1, str_length(recog_object)-5), "1.pict", sep = ""))
+  mutate(recog_object_raw = str_c(substr(recog_object, 1, str_length(recog_object)-5), 
+                                  "1.pict", sep = ""))
 #create the list of new objects
 my_list = my_list %>% 
-  mutate(new_object = ifelse(counterbalancing == 'A'| counterbalancing == 'B'|counterbalancing == 'E'|counterbalancing == 'F', str_c(negative_obj, "1.pict", sep = ""), str_c(neutral_obj, "1.pict", sep = "")))
+  mutate(new_object = ifelse(counterbalancing == 'A'| counterbalancing == 'B'|counterbalancing == 'E'|counterbalancing == 'F', 
+                             str_c(negative_obj, "1.pict", sep = ""), str_c(neutral_obj, "1.pict", sep = "")))
 
 #output my list
 write_csv(my_list, file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "my_stimuli_list.csv"))
@@ -88,6 +92,7 @@ final_list <- final_list %>%
 write_csv(final_list, file.path("C:/Stanford/PSYCH251 experimental methods/replication project/my tasks", "final_list.csv"))
 
 #create a list of all items in Session 2
+#item: 64 recog_object, 64 recog_background, 64 new items
 item <- append(final_list$recog_object, final_list$recog_background)
 item <- append(item, final_list$new_item)
 
